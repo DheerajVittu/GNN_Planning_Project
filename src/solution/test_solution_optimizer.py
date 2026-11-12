@@ -243,3 +243,33 @@ for candidate in generated_candidates[:10]:
         "| Objective:", round(evaluation["total_objective"], 2),
         "| Ranking:", evaluation["ranking_score"]
     )
+
+# ============================================================
+# TEST: SELECT BEST FROM ALL GENERATED CANDIDATES
+# ============================================================
+
+candidate_pool = [solution] + generated_candidates
+
+selection_result = select_best_solution(
+    scenario=scenario,
+    candidate_solutions=candidate_pool
+)
+
+best_solution = selection_result["best_solution"]
+best_evaluation = selection_result["best_evaluation"]
+evaluated_candidates = selection_result["evaluated_candidates"]
+
+print("\n========== BEST SOLUTION FROM ALL CANDIDATES ==========")
+print("Total candidates evaluated:", len(evaluated_candidates))
+
+if best_solution is not None:
+    print("Best solution:", best_solution.solution_id)
+    print("Incidents served:", best_evaluation["incidents_served"])
+    print("Devices fulfilled:", best_evaluation["fulfilled_devices"])
+    print(
+        "Demand fulfilment:",
+        round(best_evaluation["fulfillment_percentage"], 2), "%"
+    )
+    print("Objective:", round(best_evaluation["total_objective"], 2))
+else:
+    print("No feasible solution found.")
