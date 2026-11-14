@@ -454,4 +454,206 @@ def decode_assignments(
 
                 allocated += 1
 
+
+    # --------------------------------------------------
+    # STEP 7: DEPLOY ADDITIONAL VEHICLES WHEN NEEDED
+    # --------------------------------------------------
+
+    # The first allocation pass may leave some incident
+    # requirements unfulfilled. Try assigning additional
+    # vehicles to those incidents.
+
+    while True:
+
+        best_candidate = None
+        best_score = float("-inf")
+
+        # Examine all vehicle-incident combinations.
+        for vehicle_score, vehicle_index, incident_index in vehicle_incident_candidates:
+
+            # A vehicle can serve only one incident.
+            if vehicle_index in selected_incidents:
+                continue
+
+            vehicle_id = vehicle_ids[vehicle_index]
+            vehicle = vehicle_by_id[vehicle_id]
+
+            incident_id = incident_ids[incident_index]
+            incident = incident_by_id[incident_id]
+
+            # Calculate remaining demand for this incident.
+            assigned_counts = defaultdict(int)
+
+            for assignment in solution.device_assignments:
+
+                assigned_vehicle_id = assignment.vehicle_id
+
+                assigned_incident_index = selected_incidents.get(
+                    vehicle_ids.index(assigned_vehicle_id)
+                )
+
+                if assigned_incident_index == incident_index:
+                    assigned_device = device_by_id[assignment.device_id]
+
+                    assigned_counts[assigned_device["device_type"]] += 1
+
+            unmet_types = []
+
+            for device_type, required_quantity in incident["required_devices"].items():
+
+                if device_type.lower() == "radio":
+                    continue
+
+                remaining = (
+                    required_quantity - assigned_counts[device_type]
+                )
+
+                if remaining > 0:
+                    unmet_types.append(device_type)
+
+            if not unmet_types:
+                continue
+
+            # Find an available Radio for the additional vehicle.
+            for radio in available_radios:
+
+                radio_id = radio["device_id"]
+
+                if radio_id in assigned_device_ids:
+                    continue
+
+                if not _can_add_device(
+                    radio,
+                    vehicle,
+                    [],
+                    device_by_id
+                ):
+                    continue
+
+                radio_index = device_ids.index(radio_id)
+
+                radio_score = device_vehicle_score_lookup.get(
+                    (radio_index, vehicle_index),
+                    float("-inf")
+                )
+
+                if radio_score == float("-inf"):
+                    continue
+
+                # Find a required device that can travel
+                # with the Radio in this vehicle.
+                for device_type in unmet_types:
+
+                    for device in devices:
+
+                        device_id = device["device_id"]
+
+                        if device["device_type"] != device_type:
+                            continue
+
+                        if device_id not in available_device_ids:
+                            continue
+
+                        if device_id in assigned_device_ids:
+                            continue
+
+                        if not _can_add_device(
+                            device,
+                            vehicle,
+                            [radio_id],
+                            device_by_id
+                        ):
+                            continue
+
+                        device_index = device_ids.index(device_id)
+
+                        device_score = device_vehicle_score_lookup.get(
+                            (device_index, vehicle_index),
+                            float("-inf")
+                        )
+
+                        if device_score == float("-inf"):
+                            continue
+
+                        combined_score = (
+                            vehicle_score * device_score
+                        )
+
+                        if combined_score > best_score:
+
+                            best_score = combined_score
+
+                            best_candidate = (
+                                vehicle_index,
+                                incident_index,
+                                radio,
+                                device
+                            )
+
+        # Stop when no additional feasible assignment exists.
+        if best_candidate is None:
+            break
+
+        vehicle_index, incident_index, radio, device = best_candidate
+
+        vehicle_id = vehicle_ids[vehicle_index]
+        incident_id = incident_ids[incident_index]
+
+        # Assign the additional vehicle to the incident.
+        selected_incidents[vehicle_index] = incident_index
+
+        vehicles_per_incident[incident_id].append(
+            vehicle_index
+        )
+
+        solution.vehicle_assignments.append(
+            VehicleAssignment(
+                vehicle_id=vehicle_id,
+                incident_id=incident_id
+            )
+        )
+
+        # Assign its mandatory Radio.
+        radio_id = radio["device_id"]
+
+        solution.device_assignments.append(
+            DeviceAssignment(
+                device_id=radio_id,
+                vehicle_id=vehicle_id
+            )
+        )
+
+        assigned_device_ids.add(radio_id)
+
+        assigned_devices_by_vehicle[vehicle_id].append(
+            radio_id
+        )
+
+        # Assign at least one currently required device.
+        device_id = device["device_id"]
+
+        solution.device_assignments.append(
+            DeviceAssignment(
+                device_id=device_id,
+                vehicle_id=vehicle_id
+            )
+        )
+
+        assigned_device_ids.add(device_id)
+
+        assigned_devices_by_vehicle[vehicle_id].append(
+            device_id
+        )
+
+    print("\nADDITIONAL VEHICLE ALLOCATION")
+    print(
+        "Total vehicles deployed:",
+        len(solution.vehicle_assignments)
+    )
+
+    print(
+        "Total devices assigned:",
+        len(solution.device_assignments)
+    )
+
     return solution

@@ -57,7 +57,8 @@ def generate_scenario(
     num_incidents=3,
     num_storages=2,
     num_vehicles=3,
-    seed=42
+    seed=42,
+    num_devices=None
 ):
     """
     Generate a synthetic disaster-response planning scenario.
@@ -113,7 +114,7 @@ def generate_scenario(
 
         incidents.append(incident)
 
-    # --------------------------------------------------
+        # --------------------------------------------------
     # STEP B: Generate individual devices
     # --------------------------------------------------
 
@@ -121,16 +122,61 @@ def generate_scenario(
 
     device_counter = 1
 
-    for device_type, required_quantity in total_required_devices.items():
+    # Preserve the original generation behaviour
+    # when no exact device count is provided.
+    if num_devices is None:
 
-        # Add one or two spare devices for each required type.
-        spare_quantity = rng.randint(1, 2)
+        device_quantities = {
+            device_type: required_quantity + rng.randint(1, 2)
+            for device_type, required_quantity
+            in total_required_devices.items()
+        }
 
-        total_quantity = required_quantity + spare_quantity
+    else:
+
+        if num_devices < 0:
+            raise ValueError("num_devices cannot be negative.")
+
+        minimum_required = sum(total_required_devices.values())
+
+        if num_devices < minimum_required:
+            raise ValueError(
+                f"Requested {num_devices} devices, but "
+                f"incident requirements total {minimum_required}."
+            )
+
+        # Start with enough devices to meet all requirements.
+                # Start with enough devices to meet all incident requirements.
+        device_quantities = dict(total_required_devices)
+
+        # Every potentially deployed vehicle needs a Radio.
+        additional_radios = max(
+            0,
+            num_vehicles - device_quantities["Radio"]
+        )
+
+        remaining_devices = num_devices - minimum_required
+
+        if additional_radios > remaining_devices:
+            raise ValueError(
+                "Not enough devices to provide Radios for all vehicles "
+                "while meeting incident requirements."
+            )
+
+        device_quantities["Radio"] += additional_radios
+        remaining_devices -= additional_radios
+
+        # Distribute the remaining devices randomly.
+        for _ in range(remaining_devices):
+            selected_type = rng.choice(list(DEVICE_CATALOG.keys()))
+            device_quantities[selected_type] += 1
+
+    # Create the individual device objects.
+    for device_type, quantity in device_quantities.items():
 
         specifications = DEVICE_CATALOG[device_type]
 
-        for _ in range(total_quantity):
+        for _ in range(quantity):
 
             device = Device(
                 device_id=f"Device_{device_counter}",

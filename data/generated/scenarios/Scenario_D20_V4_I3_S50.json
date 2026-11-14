@@ -1,0 +1,342 @@
+{
+    "scenario_id": "Scenario_D20_V4_I3_S50",
+    "incidents": [
+        {
+            "incident_id": "Incident_1",
+            "x": 76.69,
+            "y": 33.0,
+            "z": 10.77,
+            "required_devices": {
+                "MedicalKit": 1,
+                "Radio": 2
+            },
+            "incident_category": "Fire",
+            "severity": 5
+        },
+        {
+            "incident_id": "Incident_2",
+            "x": 82.53,
+            "y": 97.97,
+            "z": 6.39,
+            "required_devices": {
+                "Radio": 2
+            },
+            "incident_category": "Fire",
+            "severity": 1
+        },
+        {
+            "incident_id": "Incident_3",
+            "x": 69.31,
+            "y": 82.49,
+            "z": 15.88,
+            "required_devices": {
+                "EmergencyRaft": 1,
+                "MedicalKit": 1
+            },
+            "incident_category": "Rescue",
+            "severity": 1
+        }
+    ],
+    "devices": [
+        {
+            "device_id": "Device_1",
+            "device_type": "Pump",
+            "operating_cost": 30.0,
+            "length": 150.0,
+            "width": 50.0,
+            "height": 60.0
+        },
+        {
+            "device_id": "Device_2",
+            "device_type": "Pump",
+            "operating_cost": 30.0,
+            "length": 150.0,
+            "width": 50.0,
+            "height": 60.0
+        },
+        {
+            "device_id": "Device_3",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_4",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_5",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_6",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_7",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_8",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_9",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_10",
+            "device_type": "Radio",
+            "operating_cost": 10.0,
+            "length": 20.0,
+            "width": 10.0,
+            "height": 5.0
+        },
+        {
+            "device_id": "Device_11",
+            "device_type": "MedicalKit",
+            "operating_cost": 15.0,
+            "length": 40.0,
+            "width": 30.0,
+            "height": 20.0
+        },
+        {
+            "device_id": "Device_12",
+            "device_type": "MedicalKit",
+            "operating_cost": 15.0,
+            "length": 40.0,
+            "width": 30.0,
+            "height": 20.0
+        },
+        {
+            "device_id": "Device_13",
+            "device_type": "MedicalKit",
+            "operating_cost": 15.0,
+            "length": 40.0,
+            "width": 30.0,
+            "height": 20.0
+        },
+        {
+            "device_id": "Device_14",
+            "device_type": "MedicalKit",
+            "operating_cost": 15.0,
+            "length": 40.0,
+            "width": 30.0,
+            "height": 20.0
+        },
+        {
+            "device_id": "Device_15",
+            "device_type": "MedicalKit",
+            "operating_cost": 15.0,
+            "length": 40.0,
+            "width": 30.0,
+            "height": 20.0
+        },
+        {
+            "device_id": "Device_16",
+            "device_type": "MedicalKit",
+            "operating_cost": 15.0,
+            "length": 40.0,
+            "width": 30.0,
+            "height": 20.0
+        },
+        {
+            "device_id": "Device_17",
+            "device_type": "EmergencyRaft",
+            "operating_cost": 45.0,
+            "length": 180.0,
+            "width": 80.0,
+            "height": 50.0
+        },
+        {
+            "device_id": "Device_18",
+            "device_type": "EmergencyRaft",
+            "operating_cost": 45.0,
+            "length": 180.0,
+            "width": 80.0,
+            "height": 50.0
+        },
+        {
+            "device_id": "Device_19",
+            "device_type": "EmergencyRaft",
+            "operating_cost": 45.0,
+            "length": 180.0,
+            "width": 80.0,
+            "height": 50.0
+        },
+        {
+            "device_id": "Device_20",
+            "device_type": "EmergencyRaft",
+            "operating_cost": 45.0,
+            "length": 180.0,
+            "width": 80.0,
+            "height": 50.0
+        }
+    ],
+    "storages": [
+        {
+            "storage_id": "Storage_1",
+            "x": 41.18,
+            "y": 62.44,
+            "z": 13.92,
+            "device_ids": [
+                "Device_1",
+                "Device_11"
+            ]
+        },
+        {
+            "storage_id": "Storage_2",
+            "x": 81.94,
+            "y": 85.32,
+            "z": 12.51,
+            "device_ids": [
+                "Device_2",
+                "Device_12"
+            ]
+        },
+        {
+            "storage_id": "Storage_3",
+            "x": 96.64,
+            "y": 49.61,
+            "z": 17.75,
+            "device_ids": [
+                "Device_3",
+                "Device_13"
+            ]
+        },
+        {
+            "storage_id": "Storage_4",
+            "x": 81.5,
+            "y": 81.76,
+            "z": 2.5,
+            "device_ids": [
+                "Device_4",
+                "Device_14"
+            ]
+        },
+        {
+            "storage_id": "Storage_5",
+            "x": 57.04,
+            "y": 51.66,
+            "z": 1.86,
+            "device_ids": [
+                "Device_5",
+                "Device_15"
+            ]
+        },
+        {
+            "storage_id": "Storage_6",
+            "x": 36.77,
+            "y": 51.67,
+            "z": 0.13,
+            "device_ids": [
+                "Device_6",
+                "Device_16"
+            ]
+        },
+        {
+            "storage_id": "Storage_7",
+            "x": 0.9,
+            "y": 58.7,
+            "z": 8.22,
+            "device_ids": [
+                "Device_7",
+                "Device_17"
+            ]
+        },
+        {
+            "storage_id": "Storage_8",
+            "x": 97.83,
+            "y": 85.03,
+            "z": 16.58,
+            "device_ids": [
+                "Device_8",
+                "Device_18"
+            ]
+        },
+        {
+            "storage_id": "Storage_9",
+            "x": 80.28,
+            "y": 22.42,
+            "z": 14.52,
+            "device_ids": [
+                "Device_9",
+                "Device_19"
+            ]
+        },
+        {
+            "storage_id": "Storage_10",
+            "x": 9.79,
+            "y": 13.69,
+            "z": 7.52,
+            "device_ids": [
+                "Device_10",
+                "Device_20"
+            ]
+        }
+    ],
+    "vehicles": [
+        {
+            "vehicle_id": "Vehicle_1",
+            "x": 24.58,
+            "y": 3.35,
+            "z": 10.36,
+            "loading_length": 200.0,
+            "loading_width": 200.0,
+            "loading_height": 100.0
+        },
+        {
+            "vehicle_id": "Vehicle_2",
+            "x": 68.23,
+            "y": 26.21,
+            "z": 8.42,
+            "loading_length": 300.0,
+            "loading_width": 150.0,
+            "loading_height": 150.0
+        },
+        {
+            "vehicle_id": "Vehicle_3",
+            "x": 47.02,
+            "y": 40.31,
+            "z": 7.25,
+            "loading_length": 200.0,
+            "loading_width": 100.0,
+            "loading_height": 150.0
+        },
+        {
+            "vehicle_id": "Vehicle_4",
+            "x": 66.79,
+            "y": 56.66,
+            "z": 6.15,
+            "loading_length": 250.0,
+            "loading_width": 200.0,
+            "loading_height": 200.0
+        }
+    ]
+}

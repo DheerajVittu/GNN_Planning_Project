@@ -1,0 +1,187 @@
+{
+    "scenario_id": "Scenario_D20_V4_I3_S43",
+    "scenario_file": "data/generated/scenarios/Scenario_D20_V4_I3_S43.json",
+    "reference_solution": {
+        "solution_id": "CP_SAT_Scenario_D20_V4_I3_S43",
+        "scenario_id": "Scenario_D20_V4_I3_S43",
+        "device_assignments": [
+            {
+                "device_id": "Device_1",
+                "vehicle_id": "Vehicle_1"
+            },
+            {
+                "device_id": "Device_6",
+                "vehicle_id": "Vehicle_2"
+            },
+            {
+                "device_id": "Device_7",
+                "vehicle_id": "Vehicle_3"
+            },
+            {
+                "device_id": "Device_8",
+                "vehicle_id": "Vehicle_4"
+            },
+            {
+                "device_id": "Device_9",
+                "vehicle_id": "Vehicle_2"
+            },
+            {
+                "device_id": "Device_13",
+                "vehicle_id": "Vehicle_1"
+            },
+            {
+                "device_id": "Device_14",
+                "vehicle_id": "Vehicle_3"
+            },
+            {
+                "device_id": "Device_15",
+                "vehicle_id": "Vehicle_4"
+            },
+            {
+                "device_id": "Device_16",
+                "vehicle_id": "Vehicle_2"
+            },
+            {
+                "device_id": "Device_17",
+                "vehicle_id": "Vehicle_2"
+            }
+        ],
+        "vehicle_assignments": [
+            {
+                "vehicle_id": "Vehicle_1",
+                "incident_id": "Incident_3"
+            },
+            {
+                "vehicle_id": "Vehicle_2",
+                "incident_id": "Incident_2"
+            },
+            {
+                "vehicle_id": "Vehicle_3",
+                "incident_id": "Incident_2"
+            },
+            {
+                "vehicle_id": "Vehicle_4",
+                "incident_id": "Incident_1"
+            }
+        ]
+    },
+    "validation": {
+        "valid": true,
+        "hard_constraints_passed": true,
+        "checks": {
+            "assignment_references": {
+                "passed": true,
+                "violations": []
+            },
+            "individual_device_fit": {
+                "passed": true,
+                "violations": []
+            },
+            "combined_loading_dimensions": {
+                "passed": true,
+                "violations": []
+            },
+            "radio_per_deployed_vehicle": {
+                "passed": true,
+                "violations": []
+            },
+            "device_assigned_once": {
+                "passed": true,
+                "violations": []
+            },
+            "vehicle_serves_one_incident": {
+                "passed": true,
+                "violations": []
+            },
+            "storage_stock_availability": {
+                "passed": true,
+                "violations": []
+            },
+            "incident_demand_matching": {
+                "passed": true,
+                "violations": []
+            }
+        },
+        "violations": [],
+        "demand_summary": {
+            "Incident_1": {
+                "required": {
+                    "MedicalKit": 1
+                },
+                "assigned": {
+                    "MedicalKit": 1
+                },
+                "fulfilled": {
+                    "MedicalKit": 1
+                },
+                "total_required_excluding_radio": 1,
+                "total_fulfilled_excluding_radio": 1,
+                "unmet_excluding_radio": 0,
+                "fulfillment_percentage": 100.0
+            },
+            "Incident_2": {
+                "required": {
+                    "EmergencyRaft": 2,
+                    "MedicalKit": 2,
+                    "Pump": 2
+                },
+                "assigned": {
+                    "Pump": 2,
+                    "MedicalKit": 2
+                },
+                "fulfilled": {
+                    "EmergencyRaft": 0,
+                    "MedicalKit": 2,
+                    "Pump": 2
+                },
+                "total_required_excluding_radio": 6,
+                "total_fulfilled_excluding_radio": 4,
+                "unmet_excluding_radio": 2,
+                "fulfillment_percentage": 66.67
+            },
+            "Incident_3": {
+                "required": {
+                    "Pump": 1
+                },
+                "assigned": {
+                    "Pump": 1
+                },
+                "fulfilled": {
+                    "Pump": 1
+                },
+                "total_required_excluding_radio": 1,
+                "total_fulfilled_excluding_radio": 1,
+                "unmet_excluding_radio": 0,
+                "fulfillment_percentage": 100.0
+            }
+        },
+        "overall_coverage": {
+            "total_incidents": 3,
+            "incidents_receiving_devices": 3,
+            "incidents_without_devices": 0,
+            "incident_coverage_percentage": 100.0,
+            "total_required_excluding_radio": 8,
+            "total_fulfilled_excluding_radio": 6,
+            "total_unmet_excluding_radio": 2,
+            "overall_fulfillment_percentage": 75.0
+        }
+    },
+    "objective": {
+        "total_distance": 263.0645692185821,
+        "total_hourly_operating_cost": 175.0,
+        "distance_weight": 1.0,
+        "operating_cost_weight": 1.0,
+        "weighted_distance": 263.0645692185821,
+        "weighted_operating_cost": 175.0,
+        "total_objective": 438.0645692185821,
+        "vehicle_distances": {
+            "Vehicle_1": 66.67551124663387,
+            "Vehicle_2": 86.26302452383639,
+            "Vehicle_3": 48.126941519277956,
+            "Vehicle_4": 61.99909192883392
+        },
+        "deployed_device_count": 10
+    },
+    "maximum_coverage": 3,
+    "maximum_fulfilled": 6
+}
