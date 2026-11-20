@@ -174,7 +174,59 @@ def main():
 
             embeddings = gnn(graph)
             predictions = prediction_heads(embeddings, graph)
+                    # Diagnostic: compare GNN scores with actual travel distances.
+        if seed == 50:
 
+            print("\nVEHICLE-INCIDENT PREDICTION ANALYSIS")
+            print("-" * 65)
+
+            vehicle_incident_edges = graph[
+                "vehicle",
+                "can_serve",
+                "incident"
+            ].edge_index.detach().cpu()
+
+            vehicle_scores = torch.sigmoid(
+                predictions["vehicle_incident_logits"]
+            ).detach().cpu().reshape(-1)
+
+            vehicle_by_id = {
+                v["vehicle_id"]: v for v in scenario["vehicles"]
+            }
+
+            incident_by_id = {
+                i["incident_id"]: i for i in scenario["incidents"]
+            }
+
+            for position in range(vehicle_incident_edges.shape[1]):
+
+                vehicle_index = int(
+                    vehicle_incident_edges[0, position]
+                )
+
+                incident_index = int(
+                    vehicle_incident_edges[1, position]
+                )
+
+                vehicle_id = graph["vehicle"].node_ids[vehicle_index]
+                incident_id = graph["incident"].node_ids[incident_index]
+
+                vehicle = vehicle_by_id[vehicle_id]
+                incident = incident_by_id[incident_id]
+
+                distance = (
+                    (vehicle["x"] - incident["x"]) ** 2
+                    + (vehicle["y"] - incident["y"]) ** 2
+                    + (vehicle["z"] - incident["z"]) ** 2
+                ) ** 0.5
+
+                score = float(vehicle_scores[position])
+
+                print(
+                    f"{vehicle_id:12} -> {incident_id:12} "
+                    f"| GNN score: {score:.4f} "
+                    f"| Distance: {distance:.2f}"
+                )
         # 5. Compare predictions with CP-SAT labels.
         device_metrics = calculate_metrics(
             predictions["device_vehicle_logits"],

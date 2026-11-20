@@ -9,6 +9,17 @@ from src.solution.solution_schema import (
 )
 
 
+def _vehicle_incident_distance(vehicle, incident):
+    """
+    Calculate straight-line 3D distance
+    between a vehicle and an incident.
+    """
+    return (
+        (vehicle["x"] - incident["x"]) ** 2
+        + (vehicle["y"] - incident["y"]) ** 2
+        + (vehicle["z"] - incident["z"]) ** 2
+    ) ** 0.5
+
 def _sorted_device_dimensions(device):
     return sorted([
         device["length"],
@@ -204,13 +215,73 @@ def decode_assignments(
 
     for incident_index, incident_id in enumerate(incident_ids):
 
-        candidates = [
-            (score, vehicle_index)
-            for score, vehicle_index, candidate_incident_index
-            in vehicle_incident_candidates
-            if candidate_incident_index == incident_index
-            and vehicle_index in available_vehicle_indices
-        ]
+        # Skip incidents that require only Radios.
+        incident = incident_by_id[incident_id]
+
+        has_non_radio_demand = any(
+            device_type.lower() != "radio" and quantity > 0
+            for device_type, quantity
+            in incident["required_devices"].items()
+        )
+
+        if not has_non_radio_demand:
+            continue
+
+        
+        # Combine GNN confidence with travel-distance desirability.
+        candidates = []
+
+        # Find the maximum possible distance for this incident.
+        incident_distances = []
+
+        for _, vehicle_index, candidate_incident_index in vehicle_incident_candidates:
+
+            if candidate_incident_index != incident_index:
+                continue
+
+            vehicle = vehicle_by_id[vehicle_ids[vehicle_index]]
+
+            distance = (
+                (vehicle["x"] - incident["x"]) ** 2
+                + (vehicle["y"] - incident["y"]) ** 2
+                + (vehicle["z"] - incident["z"]) ** 2
+            ) ** 0.5
+
+            incident_distances.append(distance)
+
+        max_distance = max(incident_distances, default=1.0)
+
+        for gnn_score, vehicle_index, candidate_incident_index in vehicle_incident_candidates:
+
+            if candidate_incident_index != incident_index:
+                continue
+
+            if vehicle_index not in available_vehicle_indices:
+                continue
+
+            vehicle = vehicle_by_id[vehicle_ids[vehicle_index]]
+
+            distance = (
+                (vehicle["x"] - incident["x"]) ** 2
+                + (vehicle["y"] - incident["y"]) ** 2
+                + (vehicle["z"] - incident["z"]) ** 2
+            ) ** 0.5
+
+            distance_score = (
+                1.0 - distance / max_distance
+                if max_distance > 0 else 1.0
+            )
+
+            alpha = 0.5
+
+            combined_score = (
+                alpha * gnn_score
+                + (1.0 - alpha) * distance_score
+            )
+
+            candidates.append(
+                (combined_score, vehicle_index, gnn_score, distance)
+            )
 
         candidates.sort(
             key=lambda item: item[0],
@@ -220,7 +291,25 @@ def decode_assignments(
         if not candidates:
             continue
 
-        score, selected_vehicle_index = candidates[0]
+        score, selected_vehicle_index, gnn_score, selected_distance = candidates[0]
+
+        print(
+            f"Selected {vehicle_ids[selected_vehicle_index]} "
+            f"for {incident_id}: "
+            f"GNN={gnn_score:.4f}, "
+            f"distance={selected_distance:.2f}, "
+            f"combined={score:.4f}"
+        )
+
+        candidates.sort(
+            key=lambda item: item[0],
+            reverse=True
+        )
+
+        if not candidates:
+            continue
+
+        score, selected_vehicle_index, _, _ = candidates[0]
 
         selected_incidents[selected_vehicle_index] = incident_index
 
@@ -575,10 +664,44 @@ def decode_assignments(
                         if device_score == float("-inf"):
                             continue
 
-                        combined_score = (
-                            vehicle_score * device_score
+                        distance = _vehicle_incident_distance(
+                            vehicle,
+                            incident
                         )
 
+                        incident_distances = [
+                            _vehicle_incident_distance(
+                                vehicle_by_id[vehicle_ids[v_index]],
+                                incident
+                            )
+                            for _, v_index, i_index in vehicle_incident_candidates
+                            if i_index == incident_index
+                        ]
+
+                        max_distance = max(incident_distances, default=1.0)
+
+                        distance_score = (
+                            1.0 - distance / max_distance
+                            if max_distance > 0 else 1.0
+                        )
+
+                        gnn_combined_score = vehicle_score * device_score
+
+                        alpha = 0.5
+
+                        combined_score = (
+                            alpha * gnn_combined_score
+                            + (1.0 - alpha) * distance_score
+                        )
+                        print(
+                            f"STEP 7: {vehicle['vehicle_id']} -> "
+                            f"{incident['incident_id']} | "
+                            f"Device={device_id} | "
+                            f"GNN={gnn_combined_score:.4f} | "
+                            f"Distance={distance:.2f} | "
+                            f"Distance score={distance_score:.4f} | "
+                            f"Final={combined_score:.4f}"
+                        )
                         if combined_score > best_score:
 
                             best_score = combined_score
@@ -643,6 +766,193 @@ def decode_assignments(
 
         assigned_devices_by_vehicle[vehicle_id].append(
             device_id
+        )
+
+    
+    # --------------------------------------------------
+    # STEP 8: CONSOLIDATE VEHICLES SERVING THE SAME INCIDENT
+    # --------------------------------------------------
+
+    for incident_id, incident_vehicle_indices in list(
+        vehicles_per_incident.items()
+    ):
+
+        active_indices = [
+            index
+            for index in incident_vehicle_indices
+            if index in selected_incidents
+        ]
+
+        if len(active_indices) <= 1:
+            continue
+
+        incident_vehicle_ids = {
+            vehicle_ids[index]
+            for index in active_indices
+        }
+
+        # Collect all non-Radio devices assigned
+        # to vehicles serving this incident.
+        incident_device_ids = [
+            assignment.device_id
+            for assignment in solution.device_assignments
+            if assignment.vehicle_id in incident_vehicle_ids
+            and device_by_id[
+                assignment.device_id
+            ]["device_type"].lower() != "radio"
+        ]
+
+        if not incident_device_ids:
+            continue
+
+        feasible_targets = []
+
+        # Test whether one vehicle can carry all devices.
+        for target_index in active_indices:
+
+            target_vehicle_id = vehicle_ids[target_index]
+            target_vehicle = vehicle_by_id[target_vehicle_id]
+
+            target_radios = [
+                assignment.device_id
+                for assignment in solution.device_assignments
+                if assignment.vehicle_id == target_vehicle_id
+                and device_by_id[
+                    assignment.device_id
+                ]["device_type"].lower() == "radio"
+            ]
+
+            if len(target_radios) != 1:
+                continue
+
+            # Start with the target vehicle's Radio.
+            test_device_ids = list(target_radios)
+            total_score = 0.0
+            feasible = True
+
+            for device_id in incident_device_ids:
+
+                device = device_by_id[device_id]
+
+                try:
+                    device_index = device_ids.index(device_id)
+                except ValueError:
+                    feasible = False
+                    break
+
+                device_score = device_vehicle_score_lookup.get(
+                    (device_index, target_index),
+                    float("-inf")
+                )
+
+                # A valid candidate graph edge is required.
+                if device_score == float("-inf"):
+                    feasible = False
+                    break
+
+                # Check individual and combined capacity.
+                if not _can_add_device(
+                    device,
+                    target_vehicle,
+                    test_device_ids,
+                    device_by_id
+                ):
+                    feasible = False
+                    break
+
+                test_device_ids.append(device_id)
+                total_score += device_score
+
+            if feasible:
+
+                vehicle_score = next(
+                    (
+                        score
+                        for score, vehicle_idx, incident_idx
+                        in vehicle_incident_candidates
+                        if vehicle_idx == target_index
+                        and incident_idx == incident_ids.index(incident_id)
+                    ),
+                    0.0
+                )
+
+                total_score += vehicle_score
+
+                feasible_targets.append(
+                    (total_score, target_index, test_device_ids)
+                )
+
+        if not feasible_targets:
+            continue
+
+        # Select the best-scoring feasible consolidation vehicle.
+        feasible_targets.sort(
+            key=lambda item: item[0],
+            reverse=True
+        )
+
+        _, target_index, consolidated_device_ids = (
+            feasible_targets[0]
+        )
+
+        target_vehicle_id = vehicle_ids[target_index]
+
+        print(
+            "\nCONSOLIDATING VEHICLES FOR",
+            incident_id,
+            "ONTO",
+            target_vehicle_id
+        )
+
+        # Keep devices on one vehicle and remove redundant Radios.
+        updated_device_assignments = []
+
+        for assignment in solution.device_assignments:
+
+            if assignment.vehicle_id not in incident_vehicle_ids:
+                updated_device_assignments.append(assignment)
+                continue
+
+            device = device_by_id[assignment.device_id]
+
+            if device["device_type"].lower() == "radio":
+
+                if assignment.vehicle_id == target_vehicle_id:
+                    updated_device_assignments.append(assignment)
+
+            else:
+
+                updated_device_assignments.append(
+                    DeviceAssignment(
+                        device_id=assignment.device_id,
+                        vehicle_id=target_vehicle_id
+                    )
+                )
+
+        solution.device_assignments = updated_device_assignments
+
+        # Remove redundant vehicle assignments.
+        solution.vehicle_assignments = [
+            assignment
+            for assignment in solution.vehicle_assignments
+            if assignment.vehicle_id not in incident_vehicle_ids
+            or assignment.vehicle_id == target_vehicle_id
+        ]
+
+        # Update decoder tracking structures.
+        for index in active_indices:
+
+            if index != target_index:
+                selected_incidents.pop(index, None)
+
+                assigned_devices_by_vehicle[
+                    vehicle_ids[index]
+                ] = []
+
+        vehicles_per_incident[incident_id] = [target_index]
+
+        assigned_devices_by_vehicle[target_vehicle_id] = (
+            consolidated_device_ids
         )
 
     print("\nADDITIONAL VEHICLE ALLOCATION")
