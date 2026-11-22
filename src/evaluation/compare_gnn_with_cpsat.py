@@ -30,6 +30,7 @@ CHECKPOINT_PATH = Path("models/checkpoints/edge_aware_gnn_best.pt")
 TRAIN_SEEDS = [42, 43, 44, 45, 46, 47, 49, 51, 52, 53]
 TEST_SEEDS = [48, 50]
 
+EVALUATION_SEEDS = sorted(TRAIN_SEEDS + TEST_SEEDS)
 
 def get_file_paths(seed):
 
@@ -218,7 +219,7 @@ def main():
 
     results = []
 
-    for seed in TEST_SEEDS:
+    for seed in EVALUATION_SEEDS:
 
         print("\n" + "=" * 65)
         print(f"COMPARISON: SCENARIO {seed}")
@@ -470,6 +471,118 @@ def main():
             f"{gn['demand']['total_fulfilled']}/"
             f"{gn['demand']['total_required']}"
         )
+
+    # 7. Aggregate metrics by dataset split.
+    def print_group_summary(group_name, seeds):
+        group_results = [
+            result for result in results
+            if result["scenario"] in seeds
+        ]
+
+        comparable_gaps = []
+
+        for result in group_results:
+            cp = result["cpsat"]
+            gn = result["gnn"]
+
+            same_incident_coverage = (
+                cp["demand"]["incidents_served"]
+                == gn["demand"]["incidents_served"]
+            )
+
+            same_device_fulfillment = (
+                cp["demand"]["total_fulfilled"]
+                == gn["demand"]["total_fulfilled"]
+            )
+
+            cp_objective = cp["objective"]["total_objective"]
+            gn_objective = gn["objective"]["total_objective"]
+
+            if (
+                same_incident_coverage
+                and same_device_fulfillment
+                and cp_objective > 0
+            ):
+                gap = (
+                    (gn_objective - cp_objective)
+                    / cp_objective
+                ) * 100
+
+                comparable_gaps.append(gap)
+
+        count = len(group_results)
+
+        if count == 0:
+            print(f"\nNo results found for {group_name}.")
+            return
+
+        average = lambda key: sum(
+            result["gnn"][key] for result in group_results
+        ) / count
+
+        valid_count = sum(
+            result["gnn"]["valid"]
+            for result in group_results
+        )
+
+        print("\n" + "=" * 65)
+        print(f"{group_name} AGGREGATE SUMMARY ({count} scenarios)")
+        print("=" * 65)
+
+        print(f"Valid GNN solutions: {valid_count}/{count}")
+        print(
+            "Average incident coverage:",
+            f"{average('demand'):.2f}%"
+        ) if False else None
+
+        avg_coverage = sum(
+            r["gnn"]["demand"]["coverage_percentage"]
+            for r in group_results
+        ) / count
+
+        avg_fulfillment = sum(
+            r["gnn"]["demand"]["fulfillment_percentage"]
+            for r in group_results
+        ) / count
+
+        avg_distance = sum(
+            r["gnn"]["objective"]["total_distance"]
+            for r in group_results
+        ) / count
+
+        avg_cost = sum(
+            r["gnn"]["objective"]["total_hourly_operating_cost"]
+            for r in group_results
+        ) / count
+
+        print(f"Average incident coverage: {avg_coverage:.2f}%")
+        print(f"Average device fulfilment: {avg_fulfillment:.2f}%")
+        print(f"Average travel distance: {avg_distance:.2f}")
+        print(f"Average operating cost: {avg_cost:.2f}")
+
+        print(
+            "Comparable scenarios:",
+            f"{len(comparable_gaps)}/{count}"
+        )
+
+        if comparable_gaps:
+            print(
+                "Average objective gap (comparable scenarios):",
+                f"{sum(comparable_gaps) / len(comparable_gaps):.2f}%"
+            )
+
+            exact_matches = sum(
+                abs(gap) < 0.000001
+                for gap in comparable_gaps
+            )
+
+            print(
+                "Objective matches:",
+                f"{exact_matches}/{len(comparable_gaps)}"
+            )
+
+    print_group_summary("TRAINING", TRAIN_SEEDS)
+    print_group_summary("VALIDATION", TEST_SEEDS)
 
     print("\nCOMPARISON COMPLETED")
 

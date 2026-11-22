@@ -1,0 +1,1304 @@
+/mnt/c/Users/Dheeraj Lellala/GNN_Planning_Project/.venv_linux/lib/python3.14/site-packages/torch/jit/_script.py:1485: FutureWarning: `torch.jit.script` is not supported in Python 3.14+ and may break. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+
+LOADING TRAINED GNN
+=================================================================
+Checkpoint epoch: 22
+Validation loss: 1.8305805921554565
+Normalizer reconstructed successfully.
+
+=================================================================
+COMPARISON: SCENARIO 42
+=================================================================
+[STEP 6] Incident=Incident_1, Type=Pump, Required=1, Unique candidate devices=8, Candidate pairs=8
+[STEP 6 DIAGNOSIS] Incident_1 | Pump | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=Pump, Successfully allocated=1/1
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_1 | EmergencyRaft | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Successfully allocated=0/1
+[STEP 6] Incident=Incident_2, Type=Pump, Required=1, Unique candidate devices=7, Candidate pairs=7
+[STEP 6 DIAGNOSIS] Incident_2 | Pump | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=Pump, Successfully allocated=1/1
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_2 | EmergencyRaft | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Successfully allocated=0/1
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Required=1, Unique candidate devices=4, Candidate pairs=4
+[STEP 6 DIAGNOSIS] Incident_3 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=Pump, Required=2, Unique candidate devices=6, Candidate pairs=6
+[STEP 6 REJECTED] Device=Device_8, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_7, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_5, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_4, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=2 | Allocated=1 | Capacity rejections=5 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=1/2
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'Pump': 1}
+Incident_2 {'Pump': 1}
+Incident_3 {'MedicalKit': 1, 'Pump': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'Pump': 1}
+Incident_2 {'Pump': 1}
+Incident_3 {'MedicalKit': 1, 'Pump': 2}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 9
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_1
+Vehicle_2 -> Incident_3
+Vehicle_3 -> Incident_2
+Vehicle_4 -> Incident_3
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_1
+Vehicle_3 -> Incident_2
+Vehicle_2 -> Incident_3
+Vehicle_4 -> Incident_3
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_1 -> Vehicle_1
+Device_2 -> Vehicle_3
+Device_7 -> Vehicle_4
+Device_8 -> Vehicle_2
+Device_9 -> Vehicle_4
+Device_10 -> Vehicle_3
+Device_11 -> Vehicle_2
+Device_12 -> Vehicle_1
+Device_16 -> Vehicle_2
+
+GNN DEVICE ASSIGNMENTS
+Device_11 -> Vehicle_1
+Device_12 -> Vehicle_3
+Device_10 -> Vehicle_2
+Device_1 -> Vehicle_1
+Device_2 -> Vehicle_3
+Device_16 -> Vehicle_2
+Device_6 -> Vehicle_2
+Device_9 -> Vehicle_4
+Device_7 -> Vehicle_4
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 17.57
+Vehicle_2 : 10.84
+Vehicle_3 : 12.31
+Vehicle_4 : 14.23
+
+VEHICLE DISTANCES - GNN
+Vehicle_1 : 17.57
+Vehicle_3 : 12.31
+Vehicle_2 : 10.84
+Vehicle_4 : 14.23
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         5/7            5/7
+Fulfilment (%)                          71.43          71.43
+Travel distance                         54.95          54.95
+Operating cost                         175.00         175.00
+Combined objective                     229.95         229.95
+Hard constraints                         True           True
+
+GNN objective gap: 0.00%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 43
+=================================================================
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Required=1, Unique candidate devices=3, Candidate pairs=3
+[STEP 6 DIAGNOSIS] Incident_1 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Required=2, Unique candidate devices=3, Candidate pairs=3
+[STEP 6 REJECTED] Device=Device_18, Vehicle=Vehicle_2, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_19, Vehicle=Vehicle_2, Type=EmergencyRaft
+[STEP 6 DIAGNOSIS] Incident_2 | EmergencyRaft | Required=2 | Allocated=1 | Capacity rejections=2 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Successfully allocated=1/2
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Required=2, Unique candidate devices=2, Candidate pairs=2
+[STEP 6 DIAGNOSIS] Incident_2 | MedicalKit | Required=2 | Allocated=2 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Successfully allocated=2/2
+[STEP 6] Incident=Incident_2, Type=Pump, Required=2, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_2 | Pump | Required=2 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=Pump, Successfully allocated=0/2
+[STEP 6] Incident=Incident_3, Type=Pump, Required=1, Unique candidate devices=7, Candidate pairs=7
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=1/1
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'MedicalKit': 1}
+Incident_2 {'EmergencyRaft': 1, 'MedicalKit': 2}
+Incident_3 {'Pump': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'MedicalKit': 1}
+Incident_2 {'EmergencyRaft': 1, 'MedicalKit': 2, 'Pump': 1}
+Incident_3 {'Pump': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 10
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_2
+Vehicle_3 -> Incident_2
+Vehicle_4 -> Incident_1
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_3 -> Incident_1
+Vehicle_2 -> Incident_2
+Vehicle_1 -> Incident_3
+Vehicle_4 -> Incident_2
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_1 -> Vehicle_1
+Device_6 -> Vehicle_2
+Device_7 -> Vehicle_3
+Device_8 -> Vehicle_4
+Device_9 -> Vehicle_2
+Device_13 -> Vehicle_1
+Device_14 -> Vehicle_3
+Device_15 -> Vehicle_4
+Device_16 -> Vehicle_2
+Device_17 -> Vehicle_2
+
+GNN DEVICE ASSIGNMENTS
+Device_14 -> Vehicle_1
+Device_10 -> Vehicle_2
+Device_13 -> Vehicle_3
+Device_15 -> Vehicle_3
+Device_20 -> Vehicle_2
+Device_16 -> Vehicle_2
+Device_17 -> Vehicle_2
+Device_5 -> Vehicle_1
+Device_8 -> Vehicle_4
+Device_4 -> Vehicle_4
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 66.68
+Vehicle_2 : 86.26
+Vehicle_3 : 48.13
+Vehicle_4 : 62.0
+
+VEHICLE DISTANCES - GNN
+Vehicle_3 : 27.57
+Vehicle_2 : 86.26
+Vehicle_1 : 66.68
+Vehicle_4 : 105.08
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         6/8            6/8
+Fulfilment (%)                          75.00          75.00
+Travel distance                        263.06         285.59
+Operating cost                         175.00         190.00
+Combined objective                     438.06         475.59
+Hard constraints                         True           True
+
+GNN objective gap: 8.57%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 44
+=================================================================
+[STEP 6] Incident=Incident_1, Type=Pump, Required=2, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 REJECTED] Device=Device_1, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_2, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_4, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_1 | Pump | Required=2 | Allocated=1 | Capacity rejections=4 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=Pump, Successfully allocated=1/2
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_1 | EmergencyRaft | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Successfully allocated=0/1
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Required=2, Unique candidate devices=3, Candidate pairs=3
+[STEP 6 DIAGNOSIS] Incident_2 | MedicalKit | Required=2 | Allocated=2 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Successfully allocated=2/2
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Required=2, Unique candidate devices=6, Candidate pairs=6
+[STEP 6 REJECTED] Device=Device_20, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_17, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_15, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_19, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_16, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 DIAGNOSIS] Incident_2 | EmergencyRaft | Required=2 | Allocated=1 | Capacity rejections=5 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Successfully allocated=1/2
+[STEP 6] Incident=Incident_3, Type=Pump, Required=2, Unique candidate devices=4, Candidate pairs=4
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_1, Type=Pump
+[STEP 6 REJECTED] Device=Device_2, Vehicle=Vehicle_1, Type=Pump
+[STEP 6 REJECTED] Device=Device_4, Vehicle=Vehicle_1, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=2 | Allocated=1 | Capacity rejections=3 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=1/2
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'Pump': 1}
+Incident_2 {'MedicalKit': 2, 'EmergencyRaft': 1}
+Incident_3 {'Pump': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'Pump': 2}
+Incident_2 {'MedicalKit': 2, 'EmergencyRaft': 1}
+Incident_3 {'Pump': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 10
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_3
+Vehicle_3 -> Incident_2
+Vehicle_4 -> Incident_1
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_4 -> Incident_1
+Vehicle_3 -> Incident_2
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_1
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_2 -> Vehicle_4
+Device_3 -> Vehicle_2
+Device_5 -> Vehicle_1
+Device_8 -> Vehicle_1
+Device_9 -> Vehicle_3
+Device_10 -> Vehicle_4
+Device_11 -> Vehicle_2
+Device_12 -> Vehicle_3
+Device_14 -> Vehicle_3
+Device_17 -> Vehicle_3
+
+GNN DEVICE ASSIGNMENTS
+Device_11 -> Vehicle_3
+Device_8 -> Vehicle_1
+Device_10 -> Vehicle_4
+Device_5 -> Vehicle_4
+Device_12 -> Vehicle_3
+Device_13 -> Vehicle_3
+Device_18 -> Vehicle_3
+Device_1 -> Vehicle_1
+Device_6 -> Vehicle_2
+Device_2 -> Vehicle_2
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 45.82
+Vehicle_2 : 52.57
+Vehicle_3 : 90.92
+Vehicle_4 : 33.75
+
+VEHICLE DISTANCES - GNN
+Vehicle_4 : 33.75
+Vehicle_3 : 90.92
+Vehicle_1 : 45.82
+Vehicle_2 : 67.61
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         6/9            6/9
+Fulfilment (%)                          66.67          66.67
+Travel distance                        223.06         238.09
+Operating cost                         205.00         205.00
+Combined objective                     428.06         443.09
+Hard constraints                         True           True
+
+GNN objective gap: 3.51%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 45
+=================================================================
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Required=2, Unique candidate devices=6, Candidate pairs=6
+[STEP 6 REJECTED] Device=Device_18, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_19, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_20, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_15, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_17, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 DIAGNOSIS] Incident_1 | EmergencyRaft | Required=2 | Allocated=1 | Capacity rejections=5 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Successfully allocated=1/2
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Required=1, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 DIAGNOSIS] Incident_2 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Required=1, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 DIAGNOSIS] Incident_3 | EmergencyRaft | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=Pump, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=0/1
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'EmergencyRaft': 1}
+Incident_2 {'MedicalKit': 1}
+Incident_3 {'EmergencyRaft': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'EmergencyRaft': 1}
+Incident_2 {'MedicalKit': 1}
+Incident_3 {'EmergencyRaft': 1, 'Pump': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 8
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_2
+Vehicle_3 -> Incident_1
+Vehicle_4 -> Incident_3
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_3 -> Incident_1
+Vehicle_2 -> Incident_2
+Vehicle_4 -> Incident_3
+Vehicle_1 -> Incident_3
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_1 -> Vehicle_4
+Device_6 -> Vehicle_1
+Device_7 -> Vehicle_2
+Device_8 -> Vehicle_3
+Device_9 -> Vehicle_4
+Device_10 -> Vehicle_2
+Device_15 -> Vehicle_1
+Device_17 -> Vehicle_3
+
+GNN DEVICE ASSIGNMENTS
+Device_8 -> Vehicle_4
+Device_9 -> Vehicle_3
+Device_6 -> Vehicle_2
+Device_16 -> Vehicle_3
+Device_10 -> Vehicle_2
+Device_18 -> Vehicle_4
+Device_5 -> Vehicle_1
+Device_2 -> Vehicle_1
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 73.71
+Vehicle_2 : 41.65
+Vehicle_3 : 24.65
+Vehicle_4 : 14.99
+
+VEHICLE DISTANCES - GNN
+Vehicle_3 : 24.65
+Vehicle_2 : 41.65
+Vehicle_4 : 14.99
+Vehicle_1 : 73.71
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         4/5            4/5
+Fulfilment (%)                          80.00          80.00
+Travel distance                        155.00         155.00
+Operating cost                         175.00         175.00
+Combined objective                     330.00         330.00
+Hard constraints                         True           True
+
+GNN objective gap: 0.00%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 46
+=================================================================
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Required=1, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 DIAGNOSIS] Incident_1 | EmergencyRaft | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Successfully allocated=1/1
+[STEP 6] Incident=Incident_2, Type=Pump, Required=2, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 REJECTED] Device=Device_2, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_5, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_1, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_2 | Pump | Required=2 | Allocated=1 | Capacity rejections=4 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=Pump, Successfully allocated=1/2
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_2 | EmergencyRaft | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Successfully allocated=0/1
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Required=1, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 DIAGNOSIS] Incident_2 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Required=2, Unique candidate devices=4, Candidate pairs=4
+[STEP 6 REJECTED] Device=Device_19, Vehicle=Vehicle_1, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_18, Vehicle=Vehicle_1, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_17, Vehicle=Vehicle_1, Type=EmergencyRaft
+[STEP 6 DIAGNOSIS] Incident_3 | EmergencyRaft | Required=2 | Allocated=1 | Capacity rejections=3 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Successfully allocated=1/2
+[STEP 6] Incident=Incident_3, Type=Pump, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=0/1
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'EmergencyRaft': 1}
+Incident_2 {'Pump': 1, 'MedicalKit': 1}
+Incident_3 {'EmergencyRaft': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'EmergencyRaft': 1}
+Incident_2 {'Pump': 1, 'MedicalKit': 1}
+Incident_3 {'EmergencyRaft': 1, 'Pump': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 9
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_1
+Vehicle_2 -> Incident_3
+Vehicle_3 -> Incident_2
+Vehicle_4 -> Incident_3
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_3 -> Incident_1
+Vehicle_4 -> Incident_2
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_3
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_3 -> Vehicle_4
+Device_5 -> Vehicle_3
+Device_6 -> Vehicle_4
+Device_7 -> Vehicle_2
+Device_8 -> Vehicle_1
+Device_10 -> Vehicle_3
+Device_11 -> Vehicle_3
+Device_16 -> Vehicle_1
+Device_20 -> Vehicle_2
+
+GNN DEVICE ASSIGNMENTS
+Device_10 -> Vehicle_1
+Device_9 -> Vehicle_3
+Device_6 -> Vehicle_4
+Device_20 -> Vehicle_3
+Device_4 -> Vehicle_4
+Device_14 -> Vehicle_4
+Device_16 -> Vehicle_1
+Device_7 -> Vehicle_2
+Device_2 -> Vehicle_2
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 51.34
+Vehicle_2 : 78.47
+Vehicle_3 : 41.53
+Vehicle_4 : 60.18
+
+VEHICLE DISTANCES - GNN
+Vehicle_3 : 4.81
+Vehicle_4 : 95.86
+Vehicle_1 : 52.97
+Vehicle_2 : 78.47
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         5/8            5/8
+Fulfilment (%)                          62.50          62.50
+Travel distance                        231.53         232.11
+Operating cost                         205.00         205.00
+Combined objective                     436.53         437.11
+Hard constraints                         True           True
+
+GNN objective gap: 0.13%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 47
+=================================================================
+[STEP 6] Incident=Incident_1, Type=Pump, Required=2, Unique candidate devices=8, Candidate pairs=8
+[STEP 6 REJECTED] Device=Device_7, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_5, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_8, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_6, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_4, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_2, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_1 | Pump | Required=2 | Allocated=1 | Capacity rejections=7 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=Pump, Successfully allocated=1/2
+[STEP 6] Incident=Incident_2, Type=Pump, Required=2, Unique candidate devices=7, Candidate pairs=7
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_5, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_8, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_6, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_4, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 REJECTED] Device=Device_2, Vehicle=Vehicle_4, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_2 | Pump | Required=2 | Allocated=1 | Capacity rejections=6 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=Pump, Successfully allocated=1/2
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Required=2, Unique candidate devices=2, Candidate pairs=2
+[STEP 6 REJECTED] Device=Device_19, Vehicle=Vehicle_1, Type=EmergencyRaft
+[STEP 6 DIAGNOSIS] Incident_3 | EmergencyRaft | Required=2 | Allocated=1 | Capacity rejections=1 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Successfully allocated=1/2
+[STEP 6] Incident=Incident_3, Type=Pump, Required=2, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=2 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=0/2
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_3 | MedicalKit | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Successfully allocated=0/1
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'Pump': 1}
+Incident_2 {'Pump': 1}
+Incident_3 {'EmergencyRaft': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'Pump': 1}
+Incident_2 {'Pump': 2}
+Incident_3 {'EmergencyRaft': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 8
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_1
+Vehicle_2 -> Incident_3
+Vehicle_3 -> Incident_2
+Vehicle_4 -> Incident_2
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_2 -> Incident_1
+Vehicle_4 -> Incident_2
+Vehicle_1 -> Incident_3
+Vehicle_3 -> Incident_2
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_4 -> Vehicle_2
+Device_6 -> Vehicle_4
+Device_7 -> Vehicle_3
+Device_8 -> Vehicle_1
+Device_11 -> Vehicle_3
+Device_12 -> Vehicle_4
+Device_13 -> Vehicle_1
+Device_15 -> Vehicle_2
+Device_16 -> Vehicle_2
+
+GNN DEVICE ASSIGNMENTS
+Device_15 -> Vehicle_2
+Device_13 -> Vehicle_4
+Device_11 -> Vehicle_1
+Device_1 -> Vehicle_2
+Device_7 -> Vehicle_4
+Device_20 -> Vehicle_1
+Device_9 -> Vehicle_3
+Device_3 -> Vehicle_3
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 71.94
+Vehicle_2 : 82.85
+Vehicle_3 : 39.29
+Vehicle_4 : 19.37
+
+VEHICLE DISTANCES - GNN
+Vehicle_2 : 62.95
+Vehicle_4 : 19.37
+Vehicle_1 : 93.02
+Vehicle_3 : 39.29
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         5/9            4/9
+Fulfilment (%)                          55.56          44.44
+Travel distance                        213.45         214.63
+Operating cost                         175.00         175.00
+Combined objective                     388.45         389.63
+Hard constraints                         True           True
+
+GNN objective gap: 0.30%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 48
+=================================================================
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Required=1, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 DIAGNOSIS] Incident_1 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_1, Type=Pump, Required=2, Unique candidate devices=6, Candidate pairs=6
+[STEP 6 REJECTED] Device=Device_5, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_6, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_1, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_2, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_1 | Pump | Required=2 | Allocated=1 | Capacity rejections=5 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=Pump, Successfully allocated=1/2
+[STEP 6] Incident=Incident_3, Type=Pump, Required=2, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 REJECTED] Device=Device_5, Vehicle=Vehicle_1, Type=Pump
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_1, Type=Pump
+[STEP 6 REJECTED] Device=Device_1, Vehicle=Vehicle_1, Type=Pump
+[STEP 6 REJECTED] Device=Device_2, Vehicle=Vehicle_1, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=2 | Allocated=1 | Capacity rejections=4 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=1/2
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'MedicalKit': 1, 'Pump': 1}
+Incident_2 {}
+Incident_3 {'Pump': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'MedicalKit': 1, 'Pump': 2}
+Incident_2 {}
+Incident_3 {'Pump': 2}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 9
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_1
+Vehicle_3 -> Incident_3
+Vehicle_4 -> Incident_1
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_2 -> Incident_1
+Vehicle_1 -> Incident_3
+Vehicle_3 -> Incident_3
+Vehicle_4 -> Incident_1
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_3 -> Vehicle_2
+Device_4 -> Vehicle_4
+Device_5 -> Vehicle_1
+Device_6 -> Vehicle_3
+Device_8 -> Vehicle_3
+Device_10 -> Vehicle_4
+Device_11 -> Vehicle_2
+Device_13 -> Vehicle_1
+Device_14 -> Vehicle_2
+
+GNN DEVICE ASSIGNMENTS
+Device_9 -> Vehicle_2
+Device_8 -> Vehicle_1
+Device_15 -> Vehicle_2
+Device_4 -> Vehicle_2
+Device_6 -> Vehicle_1
+Device_7 -> Vehicle_3
+Device_3 -> Vehicle_3
+Device_10 -> Vehicle_4
+Device_5 -> Vehicle_4
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 20.54
+Vehicle_2 : 41.07
+Vehicle_3 : 17.27
+Vehicle_4 : 60.35
+
+VEHICLE DISTANCES - GNN
+Vehicle_2 : 41.07
+Vehicle_1 : 20.54
+Vehicle_3 : 17.27
+Vehicle_4 : 60.35
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          2/3            2/3
+Coverage (%)                            66.67          66.67
+Devices fulfilled                         5/5            5/5
+Fulfilment (%)                         100.00         100.00
+Travel distance                        139.23         139.23
+Operating cost                         175.00         175.00
+Combined objective                     314.23         314.23
+Hard constraints                         True           True
+
+GNN objective gap: 0.00%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 49
+=================================================================
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Required=2, Unique candidate devices=7, Candidate pairs=7
+[STEP 6 DIAGNOSIS] Incident_1 | MedicalKit | Required=2 | Allocated=2 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Successfully allocated=2/2
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Required=1, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 DIAGNOSIS] Incident_2 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_2, Type=Pump, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_2 | Pump | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=Pump, Successfully allocated=0/1
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Required=2, Unique candidate devices=4, Candidate pairs=4
+[STEP 6 REJECTED] Device=Device_18, Vehicle=Vehicle_4, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_17, Vehicle=Vehicle_4, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_19, Vehicle=Vehicle_4, Type=EmergencyRaft
+[STEP 6 DIAGNOSIS] Incident_3 | EmergencyRaft | Required=2 | Allocated=1 | Capacity rejections=3 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Successfully allocated=1/2
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'MedicalKit': 2}
+Incident_2 {'MedicalKit': 1}
+Incident_3 {'EmergencyRaft': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'MedicalKit': 2}
+Incident_2 {'MedicalKit': 1, 'Pump': 1}
+Incident_3 {'EmergencyRaft': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 9
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_3
+Vehicle_3 -> Incident_1
+Vehicle_4 -> Incident_2
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_3 -> Incident_1
+Vehicle_2 -> Incident_2
+Vehicle_4 -> Incident_3
+Vehicle_1 -> Incident_2
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_2 -> Vehicle_4
+Device_4 -> Vehicle_1
+Device_5 -> Vehicle_3
+Device_6 -> Vehicle_2
+Device_7 -> Vehicle_4
+Device_10 -> Vehicle_4
+Device_11 -> Vehicle_3
+Device_14 -> Vehicle_3
+Device_18 -> Vehicle_2
+Device_20 -> Vehicle_1
+
+GNN DEVICE ASSIGNMENTS
+Device_8 -> Vehicle_3
+Device_4 -> Vehicle_4
+Device_3 -> Vehicle_2
+Device_12 -> Vehicle_3
+Device_13 -> Vehicle_3
+Device_11 -> Vehicle_2
+Device_20 -> Vehicle_4
+Device_5 -> Vehicle_1
+Device_2 -> Vehicle_1
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 64.32
+Vehicle_2 : 52.25
+Vehicle_3 : 29.72
+Vehicle_4 : 61.52
+
+VEHICLE DISTANCES - GNN
+Vehicle_3 : 29.72
+Vehicle_2 : 28.98
+Vehicle_4 : 14.95
+Vehicle_1 : 55.6
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         6/6            5/6
+Fulfilment (%)                         100.00          83.33
+Travel distance                        207.81         129.25
+Operating cost                         205.00         160.00
+Combined objective                     412.81         289.25
+Hard constraints                         True           True
+
+GNN objective gap: -29.93%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 50
+=================================================================
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Required=1, Unique candidate devices=6, Candidate pairs=6
+[STEP 6 DIAGNOSIS] Incident_1 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Required=1, Unique candidate devices=4, Candidate pairs=4
+[STEP 6 DIAGNOSIS] Incident_3 | EmergencyRaft | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Required=1, Unique candidate devices=5, Candidate pairs=5
+[STEP 6 DIAGNOSIS] Incident_3 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Successfully allocated=1/1
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'MedicalKit': 1}
+Incident_2 {}
+Incident_3 {'EmergencyRaft': 1, 'MedicalKit': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'MedicalKit': 1}
+Incident_2 {}
+Incident_3 {'EmergencyRaft': 1, 'MedicalKit': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 2
+Total devices assigned: 5
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_2 -> Incident_1
+Vehicle_4 -> Incident_3
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_2 -> Incident_1
+Vehicle_4 -> Incident_3
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_4 -> Vehicle_4
+Device_8 -> Vehicle_2
+Device_11 -> Vehicle_2
+Device_12 -> Vehicle_4
+Device_20 -> Vehicle_4
+
+GNN DEVICE ASSIGNMENTS
+Device_3 -> Vehicle_4
+Device_9 -> Vehicle_2
+Device_11 -> Vehicle_2
+Device_19 -> Vehicle_4
+Device_13 -> Vehicle_4
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_2 : 11.1
+Vehicle_4 : 27.72
+
+VEHICLE DISTANCES - GNN
+Vehicle_2 : 11.1
+Vehicle_4 : 27.72
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          2/3            2/3
+Coverage (%)                            66.67          66.67
+Devices fulfilled                         3/3            3/3
+Fulfilment (%)                         100.00         100.00
+Travel distance                         38.82          38.82
+Operating cost                          95.00          95.00
+Combined objective                     133.82         133.82
+Hard constraints                         True           True
+
+GNN objective gap: 0.00%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 51
+=================================================================
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Required=2, Unique candidate devices=3, Candidate pairs=3
+[STEP 6 DIAGNOSIS] Incident_2 | MedicalKit | Required=2 | Allocated=2 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Successfully allocated=2/2
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Required=2, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_2 | EmergencyRaft | Required=2 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Successfully allocated=0/2
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Required=1, Unique candidate devices=1, Candidate pairs=1
+[STEP 6 DIAGNOSIS] Incident_3 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=Pump, Required=2, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_3 | Pump | Required=2 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=Pump, Successfully allocated=0/2
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {}
+Incident_2 {'MedicalKit': 2}
+Incident_3 {'MedicalKit': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {}
+Incident_2 {'MedicalKit': 2, 'EmergencyRaft': 1}
+Incident_3 {'MedicalKit': 1, 'Pump': 1}
+
+CONSOLIDATING VEHICLES FOR Incident_3 ONTO Vehicle_2 | Objective: 213.89
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 3
+Total devices assigned: 8
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_2
+Vehicle_3 -> Incident_3
+Vehicle_4 -> Incident_2
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_2
+Vehicle_4 -> Incident_2
+Vehicle_2 -> Incident_3
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_2 -> Vehicle_3
+Device_6 -> Vehicle_1
+Device_8 -> Vehicle_1
+Device_9 -> Vehicle_2
+Device_10 -> Vehicle_4
+Device_11 -> Vehicle_3
+Device_13 -> Vehicle_2
+Device_14 -> Vehicle_2
+Device_15 -> Vehicle_1
+Device_17 -> Vehicle_4
+Device_19 -> Vehicle_2
+
+GNN DEVICE ASSIGNMENTS
+Device_12 -> Vehicle_1
+Device_13 -> Vehicle_1
+Device_14 -> Vehicle_1
+Device_15 -> Vehicle_2
+Device_8 -> Vehicle_4
+Device_17 -> Vehicle_4
+Device_9 -> Vehicle_2
+Device_1 -> Vehicle_2
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 62.3
+Vehicle_2 : 53.48
+Vehicle_3 : 27.65
+Vehicle_4 : 18.49
+
+VEHICLE DISTANCES - GNN
+Vehicle_1 : 13.49
+Vehicle_4 : 18.49
+Vehicle_2 : 31.91
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          2/3            2/3
+Coverage (%)                            66.67          66.67
+Devices fulfilled                         7/7            5/7
+Fulfilment (%)                         100.00          71.43
+Travel distance                        161.92          63.89
+Operating cost                         235.00         150.00
+Combined objective                     396.92         213.89
+Hard constraints                         True           True
+
+GNN objective gap: -46.11%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 52
+=================================================================
+[STEP 6] Incident=Incident_1, Type=Pump, Required=2, Unique candidate devices=3, Candidate pairs=3
+[STEP 6 REJECTED] Device=Device_1, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 REJECTED] Device=Device_3, Vehicle=Vehicle_2, Type=Pump
+[STEP 6 DIAGNOSIS] Incident_1 | Pump | Required=2 | Allocated=1 | Capacity rejections=2 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=Pump, Successfully allocated=1/2
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Required=2, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_1 | MedicalKit | Required=2 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Successfully allocated=0/2
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Required=1, Unique candidate devices=3, Candidate pairs=3
+[STEP 6 DIAGNOSIS] Incident_2 | EmergencyRaft | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Successfully allocated=1/1
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Required=1, Unique candidate devices=7, Candidate pairs=7
+[STEP 6 DIAGNOSIS] Incident_2 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Required=2, Unique candidate devices=6, Candidate pairs=6
+[STEP 6 DIAGNOSIS] Incident_3 | MedicalKit | Required=2 | Allocated=2 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Successfully allocated=2/2
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'Pump': 1}
+Incident_2 {'EmergencyRaft': 1, 'MedicalKit': 1}
+Incident_3 {'MedicalKit': 2}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'Pump': 1, 'MedicalKit': 1}
+Incident_2 {'EmergencyRaft': 1, 'MedicalKit': 1}
+Incident_3 {'MedicalKit': 2}
+
+CONSOLIDATING VEHICLES FOR Incident_1 ONTO Vehicle_4 | Objective: 321.7
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 3
+Total devices assigned: 9
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_1
+Vehicle_2 -> Incident_1
+Vehicle_3 -> Incident_3
+Vehicle_4 -> Incident_2
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_2
+Vehicle_3 -> Incident_3
+Vehicle_4 -> Incident_1
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_1 -> Vehicle_2
+Device_3 -> Vehicle_1
+Device_4 -> Vehicle_2
+Device_5 -> Vehicle_4
+Device_6 -> Vehicle_3
+Device_7 -> Vehicle_1
+Device_11 -> Vehicle_4
+Device_12 -> Vehicle_3
+Device_14 -> Vehicle_1
+Device_16 -> Vehicle_1
+Device_17 -> Vehicle_3
+Device_20 -> Vehicle_4
+
+GNN DEVICE ASSIGNMENTS
+Device_5 -> Vehicle_3
+Device_10 -> Vehicle_1
+Device_2 -> Vehicle_4
+Device_20 -> Vehicle_1
+Device_12 -> Vehicle_1
+Device_15 -> Vehicle_3
+Device_13 -> Vehicle_3
+Device_6 -> Vehicle_4
+Device_11 -> Vehicle_4
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 50.92
+Vehicle_2 : 34.85
+Vehicle_3 : 20.54
+Vehicle_4 : 51.35
+
+VEHICLE DISTANCES - GNN
+Vehicle_1 : 39.16
+Vehicle_3 : 20.54
+Vehicle_4 : 97.0
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         8/8            6/8
+Fulfilment (%)                         100.00          75.00
+Travel distance                        157.66         156.70
+Operating cost                         220.00         165.00
+Combined objective                     377.66         321.70
+Hard constraints                         True           True
+
+GNN objective gap: -14.82%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+COMPARISON: SCENARIO 53
+=================================================================
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Required=2, Unique candidate devices=8, Candidate pairs=8
+[STEP 6 REJECTED] Device=Device_20, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_16, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_18, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_15, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_17, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_14, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 REJECTED] Device=Device_19, Vehicle=Vehicle_3, Type=EmergencyRaft
+[STEP 6 DIAGNOSIS] Incident_1 | EmergencyRaft | Required=2 | Allocated=1 | Capacity rejections=7 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=EmergencyRaft, Successfully allocated=1/2
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Required=1, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_1 | MedicalKit | Required=1 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_1, Type=MedicalKit, Successfully allocated=0/1
+[STEP 6] Incident=Incident_2, Type=Pump, Required=1, Unique candidate devices=2, Candidate pairs=2
+[STEP 6 DIAGNOSIS] Incident_2 | Pump | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=Pump, Successfully allocated=1/1
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Required=2, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_2 | EmergencyRaft | Required=2 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_2, Type=EmergencyRaft, Successfully allocated=0/2
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Required=1, Unique candidate devices=3, Candidate pairs=3
+[STEP 6 DIAGNOSIS] Incident_3 | MedicalKit | Required=1 | Allocated=1 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=MedicalKit, Successfully allocated=1/1
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Required=2, Unique candidate devices=0, Candidate pairs=0
+[STEP 6 DIAGNOSIS] Incident_3 | EmergencyRaft | Required=2 | Allocated=0 | Capacity rejections=0 | Already assigned skips=0
+[STEP 6] Incident=Incident_3, Type=EmergencyRaft, Successfully allocated=0/2
+
+DEVICE FULFILMENT AFTER STEP 6
+Incident_1 {'EmergencyRaft': 1}
+Incident_2 {'Pump': 1}
+Incident_3 {'MedicalKit': 1}
+
+DEVICE FULFILMENT BEFORE STEP 8
+Incident_1 {'EmergencyRaft': 1, 'MedicalKit': 1}
+Incident_2 {'Pump': 1}
+Incident_3 {'MedicalKit': 1}
+
+ADDITIONAL VEHICLE ALLOCATION
+Total vehicles deployed: 4
+Total devices assigned: 8
+
+CP-SAT VEHICLE ASSIGNMENTS
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_3
+Vehicle_3 -> Incident_1
+Vehicle_4 -> Incident_2
+
+GNN VEHICLE ASSIGNMENTS
+Vehicle_3 -> Incident_1
+Vehicle_4 -> Incident_2
+Vehicle_1 -> Incident_3
+Vehicle_2 -> Incident_1
+
+CP-SAT DEVICE ASSIGNMENTS
+Device_2 -> Vehicle_4
+Device_4 -> Vehicle_1
+Device_5 -> Vehicle_2
+Device_6 -> Vehicle_3
+Device_7 -> Vehicle_4
+Device_10 -> Vehicle_3
+Device_12 -> Vehicle_2
+Device_20 -> Vehicle_1
+
+GNN DEVICE ASSIGNMENTS
+Device_6 -> Vehicle_1
+Device_3 -> Vehicle_4
+Device_8 -> Vehicle_3
+Device_13 -> Vehicle_3
+Device_1 -> Vehicle_4
+Device_10 -> Vehicle_1
+Device_4 -> Vehicle_2
+Device_11 -> Vehicle_2
+
+VEHICLE DISTANCES - CP-SAT
+Vehicle_1 : 24.87
+Vehicle_2 : 61.98
+Vehicle_3 : 52.51
+Vehicle_4 : 23.21
+
+VEHICLE DISTANCES - GNN
+Vehicle_3 : 52.51
+Vehicle_4 : 23.21
+Vehicle_1 : 24.87
+Vehicle_2 : 83.58
+
+METRIC COMPARISON
+-----------------------------------------------------------------
+Metric                                 CP-SAT            GNN
+-----------------------------------------------------------------
+Incidents served                          3/3            3/3
+Coverage (%)                           100.00         100.00
+Devices fulfilled                         4/9            4/9
+Fulfilment (%)                          44.44          44.44
+Travel distance                        162.57         184.17
+Operating cost                         145.00         145.00
+Combined objective                     307.57         329.17
+Hard constraints                         True           True
+
+GNN objective gap: 7.02%
+CP-SAT solution valid: True
+GNN solution valid: True
+
+=================================================================
+FINAL SUMMARY
+=================================================================
+
+Scenario 42
+CP-SAT objective: 229.95
+GNN objective: 229.95
+CP-SAT fulfilled: 5/7
+GNN fulfilled: 5/7
+
+Scenario 43
+CP-SAT objective: 438.06
+GNN objective: 475.59
+CP-SAT fulfilled: 6/8
+GNN fulfilled: 6/8
+
+Scenario 44
+CP-SAT objective: 428.06
+GNN objective: 443.09
+CP-SAT fulfilled: 6/9
+GNN fulfilled: 6/9
+
+Scenario 45
+CP-SAT objective: 330.0
+GNN objective: 330.0
+CP-SAT fulfilled: 4/5
+GNN fulfilled: 4/5
+
+Scenario 46
+CP-SAT objective: 436.53
+GNN objective: 437.11
+CP-SAT fulfilled: 5/8
+GNN fulfilled: 5/8
+
+Scenario 47
+CP-SAT objective: 388.45
+GNN objective: 389.63
+CP-SAT fulfilled: 5/9
+GNN fulfilled: 4/9
+
+Scenario 48
+CP-SAT objective: 314.23
+GNN objective: 314.23
+CP-SAT fulfilled: 5/5
+GNN fulfilled: 5/5
+
+Scenario 49
+CP-SAT objective: 412.81
+GNN objective: 289.25
+CP-SAT fulfilled: 6/6
+GNN fulfilled: 5/6
+
+Scenario 50
+CP-SAT objective: 133.82
+GNN objective: 133.82
+CP-SAT fulfilled: 3/3
+GNN fulfilled: 3/3
+
+Scenario 51
+CP-SAT objective: 396.92
+GNN objective: 213.89
+CP-SAT fulfilled: 7/7
+GNN fulfilled: 5/7
+
+Scenario 52
+CP-SAT objective: 377.66
+GNN objective: 321.7
+CP-SAT fulfilled: 8/8
+GNN fulfilled: 6/8
+
+Scenario 53
+CP-SAT objective: 307.57
+GNN objective: 329.17
+CP-SAT fulfilled: 4/9
+GNN fulfilled: 4/9
+
+=================================================================
+TRAINING AGGREGATE SUMMARY (10 scenarios)
+=================================================================
+Valid GNN solutions: 10/10
+Average incident coverage: 96.67%
+Average device fulfilment: 67.42%
+Average travel distance: 171.44
+Average operating cost: 174.50
+Comparable scenarios: 6/10
+Average objective gap (comparable scenarios): 3.21%
+Objective matches: 2/6
+
+=================================================================
+VALIDATION AGGREGATE SUMMARY (2 scenarios)
+=================================================================
+Valid GNN solutions: 2/2
+Average incident coverage: 66.67%
+Average device fulfilment: 100.00%
+Average travel distance: 89.02
+Average operating cost: 135.00
+Comparable scenarios: 2/2
+Average objective gap (comparable scenarios): 0.00%
+Objective matches: 2/2
+
+COMPARISON COMPLETED
